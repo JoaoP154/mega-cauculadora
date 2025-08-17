@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mega Calculadora</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <h1>Mega Calculadora</h1>
+      <div class="actions">
+        <button id="themeToggle" title="Alternar tema">🌗</button>
+        <button id="clearAll" class="danger" title="Limpar tudo">Limpar</button>
+      </div>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab active" data-tab="calc">Calculadora</button>
+      <button class="tab" data-tab="bases">Bases</button>
+      <button class="tab" data-tab="unidades">Unidades</button>
+      <button class="tab" data-tab="grafico">Gráfico</button>
+      <button class="tab" data-tab="sobre">Sobre</button>
+    </nav>
+
+    <section id="calc" class="panel active">
+      <div class="display-wrap">
+        <input id="expr" class="expr" placeholder="Digite uma expressão (ex: sin(pi/2)+2^3)" />
+        <input id="result" class="result" placeholder="Resultado" disabled />
+      </div>
+
+      <div class="keypad">
+        <div class="col">
+          <button data-fn="mc">MC</button>
+          <button data-fn="mr">MR</button>
+          <button data-fn="mplus">M+</button>
+          <button data-fn="mminus">M-</button>
+          <button data-insert="("> ( </button>
+          <button data-insert=")"> ) </button>
+          <button data-insert=","> , </button>
+          <button data-fn="del">⌫</button>
+          <button data-fn="clr" class="danger">C</button>
+        </div>
+        <div class="col">
+          <button data-insert="7">7</button>
+          <button data-insert="8">8</button>
+          <button data-insert="9">9</button>
+          <button data-insert="/">÷</button>
+          <button data-insert="sin(">sin(</button>
+          <button data-insert="cos(">cos(</button>
+          <button data-insert="tan(">tan(</button>
+          <button data-insert="pi">π</button>
+        </div>
+        <div class="col">
+          <button data-insert="4">4</button>
+          <button data-insert="5">5</button>
+          <button data-insert="6">6</button>
+          <button data-insert="*">×</button>
+          <button data-insert="log10(">log(</button>
+          <button data-insert="ln(">ln(</button>
+          <button data-insert="sqrt(">√(</button>
+          <button data-insert="e">e</button>
+        </div>
+        <div class="col">
+          <button data-insert="1">1</button>
+          <button data-insert="2">2</button>
+          <button data-insert="3">3</button>
+          <button data-insert="-">−</button>
+          <button data-insert="^">^</button>
+          <button data-insert="%">%</button>
+          <button data-insert="!">!</button>
+          <button data-fn="ans">ANS</button>
+        </div>
+        <div class="col">
+          <button data-insert="0">0</button>
+          <button data-insert=".">.</button>
+          <button data-insert=">>">≫</button>
+          <button data-insert="<<">≪</button>
+          <button data-insert="+">+</button>
+          <button class="equals" data-fn="eq">=</button>
+        </div>
+      </div>
+
+      <aside class="side">
+        <h3>Histórico</h3>
+        <ul id="history"></ul>
+      </aside>
+    </section>
+
+    <section id="bases" class="panel">
+      <div class="tool">
+        <h2>Conversor de Bases</h2>
+        <div class="row">
+          <input id="baseInput" placeholder="Número" />
+          <select id="baseFrom">
+            <option value="2">Binário (2)</option>
+            <option value="8">Octal (8)</option>
+            <option value="10" selected>Decimal (10)</option>
+            <option value="16">Hex (16)</option>
+          </select>
+          <span>→</span>
+          <select id="baseTo">
+            <option value="2">Binário (2)</option>
+            <option value="8">Octal (8)</option>
+            <option value="10">Decimal (10)</option>
+            <option value="16" selected>Hex (16)</option>
+          </select>
+          <button id="convertBase">Converter</button>
+        </div>
+        <input id="baseOutput" placeholder="Resultado" disabled />
+      </div>
+    </section>
+
+    <section id="unidades" class="panel">
+      <div class="tool">
+        <h2>Conversor de Unidades</h2>
+        <div class="row">
+          <input id="unitValue" type="number" placeholder="Valor" />
+          <select id="unitFrom"></select>
+          <span>→</span>
+          <select id="unitTo"></select>
+          <button id="convertUnit">Converter</button>
+        </div>
+        <input id="unitResult" placeholder="Resultado" disabled />
+        <p class="note">Categorias: Comprimento (m, km, cm, mm), Massa (kg, g, lb), Temperatura (°C, °F, K)</p>
+      </div>
+    </section>
+
+    <section id="grafico" class="panel">
+      <div class="tool">
+        <h2>Gráfico y = f(x)</h2>
+        <div class="row">
+          <input id="graphExpr" placeholder="Ex: sin(x) + cos(2*x)" />
+          <input id="xMin" type="number" value="-10" step="0.5" />
+          <input id="xMax" type="number" value="10" step="0.5" />
+          <button id="plot">Plotar</button>
+        </div>
+        <canvas id="canvas" width="900" height="380"></canvas>
+      </div>
+    </section>
+
+    <section id="sobre" class="panel">
+      <div class="tool">
+        <h2>Sobre</h2>
+        <p>Feita com HTML + CSS + JavaScript. Parser próprio (sem eval), funções (sin, cos, tan, log, ln, sqrt), potência (^), fatorial (!), porcentagem (%), memória (MC/MR/M+/M-), histórico, atalhos de teclado, conversores e gráfico.</p>
+        <p>Extras CLI em várias linguagens na pasta <code>extras/</code>.</p>
+      </div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
